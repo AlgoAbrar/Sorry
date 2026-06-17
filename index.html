@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorry Shishir ❤️</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(to bottom,#0f172a,#1e293b,#334155);
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+position:relative;
+}
+
+.stars{
+position:absolute;
+width:100%;
+height:100%;
+}
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+50%{
+opacity:.2;
+}
+}
+
+.container{
+width:90%;
+max-width:700px;
+text-align:center;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+padding:40px;
+border-radius:30px;
+box-shadow:0 0 40px rgba(255,255,255,.15);
+z-index:10;
+}
+
+.photo{
+width:180px;
+height:180px;
+border-radius:50%;
+overflow:hidden;
+margin:auto;
+border:5px solid rgba(255,255,255,.5);
+box-shadow:0 0 30px pink;
+animation:float 4s ease-in-out infinite;
+}
+
+.photo img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-15px);
+}
+}
+
+h1{
+margin-top:20px;
+font-size:3rem;
+color:#ff8fab;
+}
+
+#message{
+margin-top:20px;
+font-size:1.2rem;
+line-height:1.8;
+min-height:180px;
+}
+
+button{
+margin-top:25px;
+padding:15px 35px;
+border:none;
+border-radius:50px;
+background:#ff4d6d;
+color:white;
+font-size:1rem;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+.hearts{
+position:absolute;
+width:100%;
+height:100%;
+overflow:hidden;
+pointer-events:none;
+}
+
+.heart{
+position:absolute;
+color:#ff4d6d;
+animation:rise linear forwards;
+}
+
+@keyframes rise{
+from{
+transform:translateY(100vh);
+opacity:1;
+}
+to{
+transform:translateY(-100px);
+opacity:0;
+}
+}
+
+#flowers{
+position:absolute;
+bottom:0;
+width:100%;
+display:flex;
+justify-content:center;
+gap:15px;
+z-index:5;
+}
+
+.flower{
+font-size:0;
+transition:2s;
+}
+
+.grow{
+font-size:65px;
+}
+
+.petal{
+position:absolute;
+font-size:20px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+from{
+transform:translateY(-50px) rotate(0deg);
+}
+to{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+.final{
+font-size:2rem;
+margin-top:20px;
+color:#ffb3c6;
+text-shadow:0 0 20px pink;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+50%{
+transform:scale(1.05);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+<div class="hearts"></div>
+
+<div class="container">
+
+<div class="photo">
+<img src="shishir.jpg" alt="Shishir">
+</div>
+
+<h1>Hi Shishir ❤️</h1>
+
+<div id="message"></div>
+
+<button id="btn" onclick="nextStep()">
+Open My Heart ❤️
+</button>
+
+</div>
+
+<div id="flowers">
+<div class="flower">🌷</div>
+<div class="flower">🌹</div>
+<div class="flower">🌸</div>
+<div class="flower">🌺</div>
+<div class="flower">🌻</div>
+</div>
+
+<script>
+
+// Stars
+
+for(let i=0;i<120;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"%";
+star.style.top=Math.random()*100+"%";
+star.style.animationDelay=Math.random()*5+"s";
+document.querySelector(".stars").appendChild(star);
+}
+
+// Hearts
+
+setInterval(()=>{
+let heart=document.createElement("div");
+
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*25)+"px";
+heart.style.animationDuration=(5+Math.random()*5)+"s";
+
+document.querySelector(".hearts").appendChild(heart);
+
+setTimeout(()=>heart.remove(),10000);
+
+},300);
+
+let step=0;
+
+function typeText(text){
+
+let i=0;
+let msg=document.getElementById("message");
+msg.innerHTML="";
+
+let interval=setInterval(()=>{
+
+msg.innerHTML+=text.charAt(i);
+
+i++;
+
+if(i>=text.length){
+clearInterval(interval);
+}
+
+},35);
+
+}
+
+function nextStep(){
+
+step++;
+
+if(step===1){
+
+typeText(
+"I'm sorry.\n\nNot because I want to win an argument.\n\nBut because hurting someone I care about was never my intention."
+);
+
+document.getElementById("btn").innerText="One More Click 🌸";
+
+}
+
+else if(step===2){
+
+typeText(
+"Thank you for reading this.\n\nYou deserve kindness, respect and happiness.\n\nNo matter what happens, I genuinely wish the best for you."
+);
+
+document.querySelectorAll(".flower").forEach((flower,index)=>{
+
+setTimeout(()=>{
+flower.classList.add("grow");
+},index*300);
+
+});
+
+startPetals();
+
+document.getElementById("btn").innerText="Final Message ❤️";
+
+}
+
+else if(step===3){
+
+document.getElementById("message").innerHTML=
+`
+<div class="final">
+Sorry Shishir ❤️
+<br><br>
+Among all the mistakes I made,
+losing your smile would be the one
+I'd regret the most.
+<br><br>
+— From Someone Who Truly Cares
+</div>
+`;
+
+document.getElementById("btn").style.display="none";
+
+}
+
+}
+
+function startPetals(){
+
+setInterval(()=>{
+
+let petal=document.createElement("div");
+
+petal.className="petal";
+petal.innerHTML="🌸";
+
+petal.style.left=Math.random()*100+"vw";
+petal.style.animationDuration=(5+Math.random()*5)+"s";
+
+document.body.appendChild(petal);
+
+setTimeout(()=>{
+petal.remove();
+},10000);
+
+},300);
+
+}
+
+</script>
+
+</body>
+</html>
